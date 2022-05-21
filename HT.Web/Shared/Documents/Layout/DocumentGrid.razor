@@ -1,0 +1,35 @@
+﻿@{
+    var active = Documents.Where(c => !c.GetContent().MarkedForDeletion);
+    if (active.Any())
+    {
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-8 p-5">
+            @foreach (var c in active)
+            {
+                <SearchableDocumentCard Restore="Restore" Edit="Edit" View="View" ChangeVisibility="ChangeVisibility" ShowEditContext="ShowEditContext" Delete="Delete" ReadModel="@c.GetContent()"/>
+            }
+        </div>
+    }
+
+    var inactive = Documents.Where(c => c.GetContent().MarkedForDeletion);
+    if (ShowEditContext && inactive.Any())
+    {
+        <MatAccordion>
+            <DocumentExpansionPanel ShowEditContext="true" Restore="Restore" Category="Gelöschte Dokumente" Documents="inactive"/>
+        </MatAccordion>
+    }
+}
+
+@code {
+
+    [Parameter]
+    public IEnumerable<ISearchableContent<DocumentReadModel>> Documents { get; set; }
+    [Parameter]
+    public EventCallback<IEnumerable<ISearchableContent<DocumentReadModel>>> DocumentsChanged { get; set; }
+    [Parameter] public bool ShowEditContext { get; set; }
+    [Parameter] public EventCallback<DocumentReadModel> Restore { get; set; }
+    [Parameter] public EventCallback<DocumentReadModel> Delete { get; set; }
+    [Parameter] public EventCallback<DocumentReadModel> ChangeVisibility { get; set; }
+    [Parameter] public EventCallback<DocumentReadModel> Edit { get; set; }
+    [Parameter] public EventCallback<DocumentReadModel> View { get; set; }
+
+}

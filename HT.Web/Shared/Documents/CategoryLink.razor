@@ -1,0 +1,15 @@
+﻿@inject NavigationManager nav
+
+<MatChip @onclick="Navigate" Label="@Category"></MatChip>
+
+@code {
+
+    [Parameter]
+    public string Category { get; set; }
+
+    private void Navigate()
+    {
+        nav.NavigateTo("documents/category/" + Category);
+    }
+
+}

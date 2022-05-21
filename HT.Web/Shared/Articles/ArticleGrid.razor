@@ -1,0 +1,19 @@
+﻿@using HT.Application.Article
+<div class="grid grid-cols-2 md:grid-cols-3 gap-8 p-5">
+    @foreach (var c in Articles)
+    {
+        <ArticleCard Delete="Delete" Edit="Edit" View="View" ShowEditContext="ShowEditContext" ChangeVisibility="ChangeVisibility" ReadModel="c.GetContent()"/>
+    }
+</div>
+
+@code {
+
+    [Parameter]
+    public IEnumerable<ISearchableContent<ArticleReadModel>> Articles { get; set; }
+    [Parameter] public bool ShowEditContext { get; set; }
+    [Parameter] public EventCallback<ArticleReadModel> Delete { get; set; }
+    [Parameter] public EventCallback<ArticleReadModel> ChangeVisibility { get; set; }
+    [Parameter] public EventCallback<ArticleReadModel> Edit { get; set; }
+    [Parameter] public EventCallback<ArticleReadModel> View { get; set; }
+
+}

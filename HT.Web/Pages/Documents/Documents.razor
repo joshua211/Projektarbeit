@@ -1,0 +1,43 @@
+﻿@page "/documents"
+@using System.Threading
+@inject IDocumentService documentService
+@inject NavigationManager nav
+@inject IContextProvider contextProvider
+@inject IMatToaster toaster
+
+@if (contextProvider.GetUserContext().IsEditor)
+{
+    <DocumentAppBar ShowEditorContext="true" LoadDocumentsAsync="LoadDocuments" AppbarTitle="Dokumente bearbeiten">
+        <NoContentView>
+            <NoContent>
+                <div class="flex flex-col items-center justify-center mt-6">
+                    <MatBody1>
+                        Noch keine Dokumente vorhanden
+                    </MatBody1>
+                    <MatButton OnClick="CreateNewDocument">
+                        Neues Dokument erstellen
+                    </MatButton>
+                </div>
+            </NoContent>
+        </NoContentView>
+    </DocumentAppBar>
+}
+else
+{
+    nav.NavigateTo("documents/user");
+}
+<MatFAB Icon="@MatIconNames.Add" Class="fixed bottom-8 right-10 md:bottom-16 md:right-20 z-10" OnClick="CreateNewDocument"></MatFAB>
+
+@code {
+    
+    private void CreateNewDocument()
+    {
+        nav.NavigateTo("documents/edit");
+    }
+
+    private async Task<ServiceResult<IEnumerable<DocumentReadModel>>> LoadDocuments()
+    {
+        return await documentService.GetAllDocumentsAsync(CancellationToken.None);
+    }
+
+}

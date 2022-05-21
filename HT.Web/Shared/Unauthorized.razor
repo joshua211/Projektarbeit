@@ -1,0 +1,14 @@
+﻿<div class="w-screen h-screen flex flex-col justify-center items-center">
+    <MatHeadline2>Nicht authorisiert</MatHeadline2>
+    <MatHeadline4>Sie haben keinen Zugriff auf diese Ressource</MatHeadline4>
+    <div class="w-2/5">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+}

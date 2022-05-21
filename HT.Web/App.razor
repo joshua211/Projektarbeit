@@ -1,0 +1,40 @@
+﻿<MatPortalHost></MatPortalHost>
+<MatToastContainer/>
+
+<Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+    <Found Context="routeData">
+        @if(routeData.PageType.Name != "Login")
+        {
+            <TeamsApplication RequireAuthentication="true" RequireDefaultScopes="true">
+                <ApplicationTemplate Context="ctx">
+                    <ContextHandler Context="ctx">
+                        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
+                    </ContextHandler>
+                </ApplicationTemplate>
+                <HostNotAvailableTemplate>
+                        <div
+                            style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 80vh; width: 90vw;">
+                            <img alt="wipPicture" style="max-width: 20rem; height: 12.5rem; max-height: 12.5rem; object-fit: contain;"
+                                src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg">
+                            <MatHeadline4>Diese Anwendung kann zurzeit nur innerhalb von Teams verwendet werden</MatHeadline4>
+                        </div>
+                    </HostNotAvailableTemplate>
+                <LoadingTemplate>
+                    <div class="h-screen w-screen bg-white flex flex-col justify-center items-center">
+                        <MatProgressCircle Indeterminate="true"/>
+                        <MatSubtitle2>Initialisierung...</MatSubtitle2>
+                    </div>
+                </LoadingTemplate>
+                <AuthenticationErrorTemplate>
+                    <Error ErrorMessage="Beim anmelden ist ein Fehler aufgetreten. Falls dies weiterhin der Fall ist, wende dich bitte an einen Administrator"/>
+                </AuthenticationErrorTemplate>
+            </TeamsApplication>
+        }
+        else{
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(NoneLayout)"/>
+        }
+    </Found>
+    <NotFound>
+        <NoContent/>
+    </NotFound>
+</Router>

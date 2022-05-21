@@ -1,0 +1,63 @@
+﻿@using HT.Web.Services
+<div class="w-full flex flex-col">
+    <div class="w-full h-14 p-3">
+        <MatIconButton OnClick="() => SetLayout(0)" Icon="@MatIconNames.Grid_on"/>
+        <MatIconButton OnClick="() => SetLayout(1)" Icon="@MatIconNames.Table_chart"/>
+    </div>
+    <div class="mr-12 w-full">
+        @switch (selectedLayout)
+        {
+            case 0:
+                <DocumentGrid @bind-Documents="@Documents" Restore="Restore" ShowEditContext="ShowEditContext" Edit="Edit" ChangeVisibility="ChangeVisibility" View="View" Delete="Delete"/>
+                break;
+            case 1:
+                <DocumentTable @bind-Documents="@Documents" Restore="Restore" ShowEditContext="ShowEditContext" Edit="Edit" ChangeVisibility="ChangeVisibility" View="View" Delete="Delete"/>
+                break;
+        }
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public IEnumerable<ISearchableContent<DocumentReadModel>> Documents { get; set; }
+
+    [Parameter]
+    public EventCallback<IEnumerable<ISearchableContent<DocumentReadModel>>> DocumentsChanged { get; set; }
+
+    [Parameter]
+    public bool ShowEditContext { get; set; }
+
+    [Parameter]
+    public EventCallback<DocumentReadModel> Restore { get; set; }
+
+    [Parameter]
+    public EventCallback<DocumentReadModel> Delete { get; set; }
+
+    [Parameter]
+    public EventCallback<DocumentReadModel> ChangeVisibility { get; set; }
+
+    [Parameter]
+    public EventCallback<DocumentReadModel> Edit { get; set; }
+
+    [Parameter]
+    public EventCallback<DocumentReadModel> View { get; set; }
+
+    [Inject]
+    public IUserPreferenceService PreferenceService { get; set; }
+
+    private int selectedLayout;
+
+    protected override async Task OnInitializedAsync()
+    {
+        selectedLayout = await PreferenceService.GetDocumentLayoutIdAsync();
+    }
+
+    private async Task SetLayout(int id)
+    {
+        selectedLayout = id;
+        StateHasChanged();
+        await PreferenceService.SetDocumentLayoutIdAsync(id);
+    }
+
+}

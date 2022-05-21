@@ -1,0 +1,15 @@
+﻿@page "/documents/dashboard"
+
+<DocumentAppBar AppbarTitle="Meine Dokumente" LoadDocumentsAsync="LoadDocuments">
+    <NoContentView>
+        <NoContent>
+            <div class="pt-5">
+                <MatSubtitle1>Keine Dokumente vorhanden</MatSubtitle1>
+                Abonniere Dokumente oder Kategorien um sie in deinem Dashboard zu finden. <br/>
+                <div class="flex justify-center pt-3">
+                    <MatButtonLink Href="documents/user">Dokumente suchen</MatButtonLink>
+                </div>
+            </div>
+        </NoContent>
+    </NoContentView>
+</DocumentAppBar>

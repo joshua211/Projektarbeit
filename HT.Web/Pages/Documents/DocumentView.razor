@@ -1,0 +1,50 @@
+﻿@page "/documents/view/{DocumentId}"
+@using HT.Application.Userdata.Interfaces
+@inject IDocumentService service
+@inject NavigationManager nav
+@inject IContextProvider contextProvider
+@inject IJSRuntime js
+@inject IMatToaster toaster
+@inject IMatDialogService dialogService
+@inject IUserdataService userdataService
+
+<AsyncResultHandler Result="serviceResult">
+    <ReturnAppbar ReturnTo="documents" AppbarTitle="Dokument ansehen">
+        <Actions>
+            @if (contextProvider.GetUserContext().IsEditor)
+            {
+                <MatIconButton OnClick="Edit" Icon="@MatIconNames.Edit"></MatIconButton>
+                <MatIconButton OnClick="Delete" Icon="@MatIconNames.Delete"></MatIconButton>
+                <MatIconButton OnClick="ChangeVisibility" Icon="@(readModel.IsVisible ? MatIconNames.Visibility : MatIconNames.Visibility_off)"/>
+            }
+            <DocumentSubscriptionButton AsIcon="true" DocumentId="@readModel.Id"/>
+
+        </Actions>
+        <ChildContent>
+            @if (contextProvider.GetUserContext().IsInAnyRole(readModel.Roles) || contextProvider.GetUserContext().IsEditor)
+            {
+                <MatAppBarContent Class="min-w-screen min-h-screen flex justify-center">
+                    @{
+                        var rev = readModel.Revisions.Last();
+                        <MatPaper Class="h-full p-4 flex flex-col w-full md:w-3/4 max-w-screen" Elevation="1">
+                            <MatChipSet>
+                                <CategoryLink Category="@readModel.Category"/>
+                            </MatChipSet>
+
+                            <MatH4 Class="mt-5 break-all">@rev.Title</MatH4>
+                            <MatSubtitle2>Zuletzt bearbeitet am @rev.Date.ToLocalTime().ToString("f") von @rev.UserContext.DisplayName</MatSubtitle2>
+                            <MatDivider/>
+                            <div class="mt-3 revert break-all">
+                                @((MarkupString)rev.Content)
+                            </div>
+                        </MatPaper>
+                    }
+                </MatAppBarContent>
+            }
+            else
+            {
+                <Unauthorized/>
+            }
+        </ChildContent>
+    </ReturnAppbar>
+</AsyncResultHandler>

@@ -1,0 +1,70 @@
+﻿<MatDrawerContainer>
+    <MatDrawer @bind-Opened="@showDrawer" Mode="MatDrawerMode.Modal">
+        <div class="w-full h-full flex flex-col p-1">
+            <div class="pt-3 pb-6">
+                <MatSubtitle2>User</MatSubtitle2>
+                <RoleSelect @bind-SelectedItems="@userRoles" ButtonLabel="Rollen" Source="appRoles"/>
+                <MatTextField @bind-Value="displayName" Label="Display Name" FullWidth="true"/>
+            </div>
+            <MatButton OnClick="UseSettings" Label="Set User"/>
+            <MatDivider/>
+            <MatSubtitle2>Navigation</MatSubtitle2>
+            <MatList TwoLine="true">
+                <MatListItem OnClick="@(() => NavigateTo("documents"))">
+                    <MatListItemText>
+                        <MatListItemPrimaryText>Dokumente bearbeiten</MatListItemPrimaryText>
+                        <MatListItemSecondaryText>/documents</MatListItemSecondaryText>
+                    </MatListItemText>
+                </MatListItem>
+                <MatListItem OnClick="@(() => NavigateTo("documents/user"))">
+                    <MatListItemText>
+                        <MatListItemPrimaryText>User Dokumente</MatListItemPrimaryText>
+                        <MatListItemSecondaryText>/documents/user</MatListItemSecondaryText>
+                    </MatListItemText>
+                </MatListItem>
+                <MatListItem OnClick="@(async () => await NavigationDialog("documents/category/"))">
+                    <MatListItemText>
+                        <MatListItemPrimaryText>Dokument Kategorie</MatListItemPrimaryText>
+                        <MatListItemSecondaryText>/documents/category/{category}</MatListItemSecondaryText>
+                    </MatListItemText>
+                </MatListItem>
+                <MatListItem OnClick="@(async () => await NavigationDialog(""))">
+                    <MatListItemText>
+                        <MatListItemPrimaryText>Custom</MatListItemPrimaryText>
+                    </MatListItemText>
+                </MatListItem>
+            </MatList>
+            <MatButton OnClick="RealoadCurrentPage">Reload Current Page</MatButton>
+            <MatDivider/>
+            <MatSubtitle2>Actions</MatSubtitle2>
+            @if (isActionInProgress)
+            {
+                <MatProgressCircle Indeterminate="true"/>
+            }
+            else
+            {
+                <MatList>
+                    <MatListItem OnClick="CreateDocumentsDialog">
+                        <MatListItemPrimaryText>Create random documents</MatListItemPrimaryText>
+                    </MatListItem>
+                    <MatListItem OnClick="MarkAllForDeletion">
+                        <MatListItemPrimaryText>Delete All Documents</MatListItemPrimaryText>
+                    </MatListItem>
+                    <MatListItem OnClick="ClearBin">
+                        <MatListItemPrimaryText>Clear Deleted Documents</MatListItemPrimaryText>
+                    </MatListItem>
+                    <MatListItem OnClick="CreateArticlesDialog">
+                        <MatListItemPrimaryText>Create random articles</MatListItemPrimaryText>
+                    </MatListItem>
+                </MatList>
+            }
+            <MatDivider/>
+            <MatButton OnClick="ReloadPage" Label="Reset" Icon="@MatIconNames.Refresh"/>
+        </div>
+    </MatDrawer>
+    <MatDrawerContent>
+        @ChildContent
+    </MatDrawerContent>
+</MatDrawerContainer>
+
+<MatFAB Class="fixed bottom-40 right-10 md:bottom-40 md:right-20 z-10" Icon="build" OnClick="OpenDrawer"/>

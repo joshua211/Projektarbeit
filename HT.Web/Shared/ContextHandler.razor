@@ -1,0 +1,51 @@
+@using HT.Application.Userdata.Interfaces
+@using System.Threading
+@inject IContextProvider provider
+@inject IGraphService graphService
+@inject IUserdataService userdataService
+
+@if (isHandled)
+{
+    @ChildContent
+}
+else
+{
+    <div class="h-screen w-screen bg-white flex flex-col justify-center items-center">
+        <MatProgressCircle Indeterminate="true"/>
+        <MatSubtitle2>Nutzerdaten laden...</MatSubtitle2>
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public ApplicationContext Context { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private bool isHandled;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            isHandled = true;
+            return;
+        }
+        
+        provider.AuthProvider = new AuthenticationProvider(Context);
+
+        var userContext = await graphService.GetUserContextAsync();
+        var result = await userdataService.GetUserdataAsync(userContext, CancellationToken.None);
+        if (!result.WasSuccessful)
+            result = await userdataService.CreateUserdataAsync(userContext, CancellationToken.None);
+        
+        userContext.Userdata = result.WasSuccessful ? result.Value : throw new Exception("Could not create userdata");
+
+        provider.SetUserContext(userContext);
+        isHandled = true;
+        StateHasChanged();
+    }
+
+}

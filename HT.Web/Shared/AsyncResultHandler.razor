@@ -1,0 +1,38 @@
+﻿@using HT.Web.Enums
+@{
+    var state = Result is null ? AsyncResultState.Pending : Result.WasSuccessful ? AsyncResultState.Loaded : AsyncResultState.Failed;
+
+    @switch (state)
+    {
+        case AsyncResultState.Pending:
+        {
+            <div class="w-screen h-screen flex justify-center items-center">
+                <MatProgressCircle Indeterminate="true" Size="MatProgressCircleSize.Large"/>
+            </div>
+            break;
+        }
+        case AsyncResultState.Loaded:
+        {
+            @ChildContent
+            break;
+        }
+        case AsyncResultState.Failed:
+        {
+            <div class="w-screen h-screen flex justify-center items-center">
+                <p>Etwas ist schief gelaufen!</p>
+                <p>@Result?.ErrorMessage</p>
+            </div>
+            break;
+        }
+    }
+}
+
+@code {
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public ServiceResult Result { get; set; }
+
+}

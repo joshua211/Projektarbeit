@@ -1,0 +1,58 @@
+﻿@page "/"
+@typeparam T
+@inject IJSRuntime js
+
+
+<MatAppBarContainer Class="h-full bg-white">
+    <MatAppBar Fixed="true">
+        <MatAppBarRow>
+            <MatAppBarSection>
+                @if (ShowMenu)
+                {
+                    <MatIconButton @ref="menuButton" Icon="menu" OnClick="@OpenMenu"></MatIconButton>
+                    <MatMenu @ref="menu">
+                        @NavList
+                    </MatMenu>
+                }
+                else
+                {
+                    <MatIconButton OnClick="Back" Icon="@MatIconNames.Arrow_back"></MatIconButton>
+                }
+                <MatAppBarTitle>@AppbarTitle</MatAppBarTitle>
+            </MatAppBarSection>
+            <MatAppBarSection Style="padding-bottom: 0;" Align="@MatAppBarSectionAlign.Start">
+                <MatTextField HideClearButton="true" Value="@queryString" OnInput="SetQueryString" Style="width: 70%; background-color: white !important; height: 100%" Icon="search" IconTrailing="true" Label="Suche" PlaceHolder="@SearchPlaceHolder"></MatTextField>
+            </MatAppBarSection>
+            <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                @Actions
+            </MatAppBarSection>
+        </MatAppBarRow>
+    </MatAppBar>
+
+    <MatAppBarContent>
+        @if (Content != null && Content.Any())
+        {
+            @ContentLayout(filteredContent)
+        }
+        else
+        {
+            <div class="pt-10">
+                @NoContentView
+            </div>
+        }
+    </MatAppBarContent>
+</MatAppBarContainer>
+
+@code {
+
+    private void SetQueryString(ChangeEventArgs args)
+    {
+        queryString = (string) args.Value;
+    }
+
+    public async Task Back()
+    {
+        await js.InvokeVoidAsync("navigateBack");
+    }
+
+}

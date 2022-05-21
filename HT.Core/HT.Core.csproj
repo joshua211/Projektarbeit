@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="EventFlow" Version="0.83.4713"/>
+        <PackageReference Include="EventFlow.DependencyInjection" Version="0.83.4713"/>
+        <PackageReference Include="Serilog" Version="2.10.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Aggregates\Article\ValueObjects"/>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+﻿@page "/news"
+
+<ArticleAppBar AppbarTitle="News" LoadDocumentsAsync="LoadArticles" ShowEditorContext="true">
+    <NoContentView>
+        <NoContent>
+            <div class="flex flex-col items-center justify-center mt-6">
+                <MatBody1>
+                    Noch keine Artikel vorhanden
+                </MatBody1>
+                @*<MatButton OnClick="CreateNewDocument">
+                    Neues Dokument erstellen
+                </MatButton>*@
+            </div>
+        </NoContent>
+    </NoContentView>
+</ArticleAppBar>

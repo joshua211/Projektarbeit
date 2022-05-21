@@ -1,0 +1,65 @@
+﻿<div class="p-5" @onclick="@(() => OnSelect(null))">
+    <div @onclick:stopPropagation="true" @onclick:preventDefault="true">
+        <MatTable Class="z-10 w-full" AllowSelection="true" SelectionChanged="OnSelect" Items="sortedDocuments" PageSize="1024" ShowPaging="false" UseSortHeaderRow="true">
+            <MatTableHeader>
+                <MatSortHeaderRow SortChanged="@SetSortArg">
+                    <MatSortHeader SortId="title">Titel</MatSortHeader>
+                    <MatSortHeader SortId="category">Kategorie</MatSortHeader>
+                    <MatSortHeader SortId="date">Zuletzt bearbeitet</MatSortHeader>
+                    <MatSortHeader SortId="editor">Bearbeiter</MatSortHeader>
+                    <MatSortHeader SortId="state">Status</MatSortHeader>
+                </MatSortHeaderRow>
+            </MatTableHeader>
+            <MatTableRow>
+                <td>@context.GetContent().Revisions.Last().Title</td>
+                <td>@context.GetContent().Category</td>
+                <td>@context.GetContent().Revisions.Last().Date</td>
+                <td>@context.GetContent().Revisions.Last().UserContext.DisplayName</td>
+                @if (context.GetContent().MarkedForDeletion)
+                {
+                    var daysLeft = (context.GetContent().DeletionTime.ToLocalTime() - DateTime.Now).Days;
+                    <td>@daysLeft Tage bis zur löschung</td>
+                }
+                else
+                {
+                    <td>@(context.GetContent().IsVisible ? "Sichtbar" : "Unsichtbar")</td>
+                }
+            </MatTableRow>
+        </MatTable>
+    </div>
+</div>
+
+@if (selectedDocument != null)
+{
+    <MatSnackbar Stacked="true" Timeout="-1" IsOpen="@(selectedDocument != null)">
+        <MatSnackbarContent>
+
+        </MatSnackbarContent>
+        <MatSnackbarActions>
+            @if (ShowEditContext)
+            {
+                @if (selectedDocument.GetContent().MarkedForDeletion)
+                {
+                    <MatButton OnClick="RestoreAndSort">Wiederherstellen</MatButton>
+                }
+                else
+                {
+                    <MatTooltip Position="MatTooltipPosition.Top" Tooltip="Bearbeiten">
+                        <MatButton RefBack="@context" OnClick="() => Edit.InvokeAsync(selectedDocument.GetContent())" Icon="@MatIconNames.Edit"></MatButton>
+                    </MatTooltip>
+                    <MatTooltip Position="MatTooltipPosition.Top" Tooltip="Löschen">
+                        <MatButton RefBack="@context" OnClick="DeleteAndSort" Icon="@MatIconNames.Delete"> </MatButton>
+                    </MatTooltip>
+                    <MatTooltip Position="MatTooltipPosition.Top" Tooltip="Sichtbarkeit ändern">
+                        <MatButton RefBack="@context" OnClick="() => ChangeVisibility.InvokeAsync(selectedDocument.GetContent())" Icon="@(selectedDocument.GetContent().IsVisible ? MatIconNames.Visibility : MatIconNames.Visibility_off)"></MatButton>
+                    </MatTooltip>
+                }
+
+            }
+            <MatTooltip Position="MatTooltipPosition.Top" Tooltip="Ansehen">
+                <MatButton RefBack="@context" OnClick="() => View.InvokeAsync(selectedDocument.GetContent())" Icon="@MatIconNames.Open_in_browser"></MatButton>
+            </MatTooltip>
+            <DocumentSubscriptionButton DocumentId="@selectedDocument.GetContent().Id" DocumentTitle="@selectedDocument.GetContent().Revisions.Last().Title"/>
+        </MatSnackbarActions>
+    </MatSnackbar>
+}

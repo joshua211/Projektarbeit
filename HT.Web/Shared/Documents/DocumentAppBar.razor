@@ -1,0 +1,29 @@
+﻿<AsyncResultHandler Result="serviceResult">
+    <SearchableContentView
+        AppbarTitle="@AppbarTitle"
+        SearchPlaceHolder="Nach Dokumenten oder Kategorien suchen"
+        Content="documents">
+        <NavList>
+            <MatNavMenu>
+                <MatNavItem Href="documents/dashboard">
+                    Meine Dokumente
+                </MatNavItem>
+                <MatNavItem Href="documents/user">
+                    Alle Dokumente
+                </MatNavItem>
+                @if (userContext.IsEditor)
+                {
+                    <MatNavItem Href="documents">
+                        Dokumente bearbeiten
+                    </MatNavItem>
+                }
+            </MatNavMenu>
+        </NavList>
+        <ContentLayout>
+            <DocumentLayoutBar @bind-Documents="@context" Restore="Restore" ShowEditContext="ShowEditorContext" Edit="Edit" ChangeVisibility="ChangeVisibility" View="View" Delete="Delete"/>
+        </ContentLayout>
+        <NoContentView>
+            @NoContentView
+        </NoContentView>
+    </SearchableContentView>
+</AsyncResultHandler>

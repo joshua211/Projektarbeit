@@ -1,0 +1,60 @@
+﻿@using HT.Application.Userdata.Interfaces
+@using HT.Core.Aggregates.Document
+@using HT.Core.Aggregates.Userdata
+@using System.Threading
+@inject IContextProvider contextProvider
+@inject IUserdataService userdataService
+@inject IMatToaster toaster
+@inject IMatDialogService dialog
+
+@{
+    var isSubscribed = contextProvider.GetUserContext().Userdata.SubscribedDocuments.Contains(DocumentId);
+    @if (AsIcon)
+    {
+        <MatIconButton OnClick="() => ToggleSubscription(!isSubscribed)" Icon="@(isSubscribed ? MatIconNames.Notifications_active : MatIconNames.Notifications_none)"/>
+    }
+    else
+    {
+        <MatButton OnClick="() => ToggleSubscription(!isSubscribed)" Icon="@(isSubscribed ? MatIconNames.Notifications_active : MatIconNames.Notifications_none)"/>
+    }
+}
+
+@code {
+
+    [Parameter]
+    public string DocumentId { get; set; }
+
+    [Parameter]
+    public bool AsIcon { get; set; }
+
+    [Parameter]
+    public string DocumentTitle { get; set; }
+
+    private async Task ToggleSubscription(bool subscribe)
+    {
+        if(!await dialog.ConfirmAsync(subscribe ? $"Das Dokument {DocumentTitle} abonnieren?" : $"Das Dokument {DocumentTitle} deabonnieren?"))
+            return;
+
+        var context = contextProvider.GetUserContext();
+        var result = subscribe
+            ? await userdataService.SubscribeToDocumentAsync(new UserdataId(context.Userdata.Id),
+                new DocumentId(DocumentId), CancellationToken.None)
+            : await userdataService.UnsubscribeToDocumentAsync(new UserdataId(context.Userdata.Id),
+                new DocumentId(DocumentId),
+                CancellationToken.None);
+        
+        if (result.WasSuccessful)
+        {
+            if (subscribe)
+                context.Userdata.SubscribedDocuments.Add(DocumentId);
+            else
+                context.Userdata.SubscribedDocuments.Remove(DocumentId);
+            toaster.Add(subscribe ? "Dokument abonniert" : "Dokument deabonniert", MatToastType.Success);
+        }
+        else
+            toaster.Add(result.ErrorMessage, MatToastType.Warning, "Error");
+
+        StateHasChanged();
+    }
+
+}

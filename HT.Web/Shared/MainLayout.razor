@@ -1,0 +1,29 @@
+@using Microsoft.Extensions.Hosting
+@using Microsoft.AspNetCore.Hosting
+@inherits LayoutComponentBase
+@inject IWebHostEnvironment env
+
+<MatThemeProvider Theme="@appTheme">
+    <div class="bg-white min-h-screen">
+        @if (!env.IsProduction())
+        {
+            <DebugPanel>
+                @Body
+            </DebugPanel>
+        }
+        else
+        {
+            @Body
+        }
+    </div>
+</MatThemeProvider>
+
+@code {
+
+    MatTheme appTheme = new MatTheme()
+    {
+        Primary = MatThemeColors.Amber._900.Value,
+        Secondary = MatThemeColors.Orange._500.Value,
+    };
+
+}

@@ -1,0 +1,61 @@
+﻿@using HT.Web.Extensions
+@using HT.Application.Userdata.Interfaces
+@inject NavigationManager nav
+@inject IDocumentService service
+@inject IContextProvider contextProvider
+@inject IMatDialogService dialogService
+@inject IMatToaster toaster
+@inject IUserdataService userdataService
+
+<MatCard Class="p-3" Style=@(ReadModel.MarkedForDeletion || !ReadModel.IsVisible ? "filter: opacity(0.5) " : "")>
+    <MatCardContent @onclick="() => View.InvokeAsync(ReadModel)">
+        <div>
+            @if (ReadModel.MarkedForDeletion)
+            {
+                var daysLeft = (ReadModel.DeletionTime.ToLocalTime() - DateTime.Now).Days;
+                <MatSubtitle2 Class="text-red-600">@daysLeft Tage bis zur löschung</MatSubtitle2>
+            }
+            <MatHeadline6 Class="break-all">
+                @ReadModel.Revisions.Last().Title
+            </MatHeadline6>
+            @{
+                var lastRevision = @ReadModel.Revisions.Last();
+
+                <MatSubtitle2>
+                    Zuletzt aktualisiert @lastRevision.Date.ToDeTime().ToString("g") von @lastRevision.UserContext.DisplayName
+                </MatSubtitle2>
+            }
+        </div>
+        <MatDivider Class="bg-yellow-500"/>
+        <div class="mt-3 h-24 text-preview break-all">
+            @((MarkupString)ReadModel.Revisions.Last().Content)
+        </div>
+    </MatCardContent>
+    <MatCardActions>
+        <CategoryLink Category="@ReadModel.Category"/>
+    </MatCardActions>
+    <MatCardActions>
+        <DocumentSubscriptionButton DocumentTitle="@ReadModel.Revisions.Last().Title" DocumentId="@ReadModel.Id"/>
+    </MatCardActions>
+    @if (ShowEditContext)
+    {
+        <MatCardActions>
+            <div class="flex items-center flex-wrap">
+                @if (!ReadModel.MarkedForDeletion)
+                {
+                    var userContext = contextProvider.GetUserContext();
+                    if (userContext.IsEditor)
+                    {
+                        <MatButton OnClick="() => Edit.InvokeAsync(ReadModel)" Icon="edit">Bearbeiten</MatButton>
+                        <MatButton OnClick="() => Delete.InvokeAsync(ReadModel)" Icon="delete">Löschen</MatButton>
+                        <MatButton OnClick="() => ChangeVisibility.InvokeAsync(ReadModel)" Icon="@(ReadModel.IsVisible ? MatIconNames.Visibility : MatIconNames.Visibility_off)">Sichtbarkeit</MatButton>
+                    }
+                }
+                else
+                {
+                    <MatButton OnClick="() => Restore.InvokeAsync(ReadModel)" Icon="@MatIconNames.Restore">Wiederherstellen</MatButton>
+                }
+            </div>
+        </MatCardActions>
+    }
+</MatCard>

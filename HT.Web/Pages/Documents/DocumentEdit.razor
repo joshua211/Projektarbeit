@@ -1,0 +1,100 @@
+﻿@page "/documents/edit"
+@page "/documents/edit/{ReadModelId}"
+@inject IDocumentService documentService;
+@inject IContextProvider provider;
+@inject NavigationManager nav
+@inject IJSRuntime js
+@inject IGraphService graphService
+@inject IMatToaster toaster
+@inject IContextProvider contextProvider
+
+<ReturnAppbar AppbarTitle="@appbarTitle">
+    <Actions>
+
+    </Actions>
+    <ChildContent>
+        <MatAppBarContent Class="min-w-screen min-h-screen flex justify-center items-start">
+            <MatPaper Class="p-5 min-h-min min-w-min w-4/5" Elevation="2">
+                <EditForm Model="editModel" OnValidSubmit="OnValidSubmit">
+                    <DataAnnotationsValidator/>
+                    <div class="mt-3">
+                        <div class="flex items-center">
+                            <MatIcon Class="mr-3" Icon="@(editModel.IsVisible ? MatIconNames.Visibility : MatIconNames.Visibility_off)"/>
+                            <MatSlideToggle @bind-Value="editModel.IsVisible"/>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="flex items-center">
+                            <MatIcon Icon="@MatIconNames.Group"></MatIcon>
+                            <RoleSelect Source="roles" ButtonLabel="Rollen" @bind-SelectedItems="editModel.Roles"/>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+
+                        @if (useExistingCategories)
+                        {
+                            <MatSelectItem @bind-Value="editModel.Category" Label="Kategorie" Items="categories"></MatSelectItem>
+                            <MatIconButton OnClick="() => useExistingCategories = false" Icon="@MatIconNames.Edit"></MatIconButton>
+                        }
+                        else
+                        {
+                            <MatTextField Label="Kategorie" @bind-Value="editModel.Category"></MatTextField>
+                            <MatIconButton OnClick="() => useExistingCategories = true" Icon="@MatIconNames.Close"></MatIconButton>
+                        }
+                    </div>
+                    <div class="mt-3">
+                        <MatTextField Label="Titel" FullWidth="true" @bind-Value="editModel.Title"></MatTextField>
+                    </div>
+                    <div class="mt-3 h-64">
+                        <BlazoredTextEditor @ref="@htmlEditor">
+                            <ToolbarContent>
+                                <select class="ql-header">
+                                    <option selected=""></option>
+                                    <option value="1"></option>
+                                    <option value="2"></option>
+                                    <option value="3"></option>
+                                    <option value="4"></option>
+                                    <option value="5"></option>
+                                </select>
+                                <span class="ql-formats">
+                                    <button class="ql-bold"></button>
+                                    <button class="ql-italic"></button>
+                                    <button class="ql-underline"></button>
+                                    <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <select class="ql-color"></select>
+                                    <select class="ql-background"></select>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-list" value="ordered"></button>
+                                    <button class="ql-list" value="bullet"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-link"></button>
+                                </span>
+                            </ToolbarContent>
+                            <EditorContent>
+                                <h4>This Toolbar works with HTML</h4>
+                                <a href="http://BlazorHelpWebsite.com">
+                                    BlazorHelpWebsite.com
+                                </a>
+                            </EditorContent>
+                        </BlazoredTextEditor>
+                    </div>
+                    <div class="mt-20">
+                        @if (isPending)
+                        {
+                            <MatProgressCircle Indeterminate="true"/>
+                        }
+                        else
+                        {
+                            <MatButton Type="submit" Raised="true">Speichern</MatButton>
+                        }
+                    </div>
+                    <ValidationSummary/>
+                </EditForm>
+            </MatPaper>
+        </MatAppBarContent>
+    </ChildContent>
+</ReturnAppbar>

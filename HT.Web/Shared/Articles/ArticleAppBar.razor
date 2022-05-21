@@ -1,0 +1,26 @@
+﻿<AsyncResultHandler Result="serviceResult">
+    <SearchableContentView
+        AppbarTitle="@AppbarTitle"
+        SearchPlaceHolder="Nach News suchen"
+        Content="articles">
+        <NavList>
+            <MatNavMenu>
+                <MatNavItem Href="news/timeline">
+                    Alle News
+                </MatNavItem>
+                @if (userContext.IsEditor)
+                {
+                    <MatNavItem Href="news">
+                        News bearbeiten
+                    </MatNavItem>
+                }
+            </MatNavMenu>
+        </NavList>
+        <ContentLayout>
+            <ArticleGrid Delete="Delete" Edit="Edit" View="View" ChangeVisibility="ChangeVisibility" ShowEditContext="ShowEditorContext" Articles="context"/>
+        </ContentLayout>
+        <NoContentView>
+            @NoContentView
+        </NoContentView>
+    </SearchableContentView>
+</AsyncResultHandler>

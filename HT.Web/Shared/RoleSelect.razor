@@ -1,0 +1,31 @@
+﻿<MatButton Type="button" @ref="@button" @onclick="ToggleMenu">@ButtonLabel</MatButton>
+
+<MatMenu @ref="menu">
+    <MatChipSet>
+        @if (SelectedItems.Count <= 2)
+        {
+            foreach (var item in SelectedItems)
+            {
+                <MatChip Label="@item" TrailingIcon="@MatIconNames.Group"></MatChip>
+            }
+        }
+        else
+        {
+            @for (var i = 0; i < 2; i++)
+            {
+                <MatChip Label="@SelectedItems[i]" TrailingIcon="@MatIconNames.Group"></MatChip>
+            }
+            <MatChip Label=@($"{SelectedItems.Count - 2} weitere") TrailingIcon="@MatIconNames.Group"></MatChip>
+        }
+
+    </MatChipSet>
+    <MatList>
+        @foreach (var item in Source)
+        {
+            var isChecked = SelectedItems.Contains(item);
+            <MatListItem>
+                <MatCheckbox Value="isChecked" ValueChanged="b => AddOrRemoveItem(b, item)" ValueExpression="() => isChecked" TValue="bool" Label="@item"></MatCheckbox>
+            </MatListItem>
+        }
+    </MatList>
+</MatMenu>

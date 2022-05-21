@@ -1,0 +1,14 @@
+﻿<MatExpansionPanel >
+    <MatExpansionPanelSummary>
+        <MatExpansionPanelHeader>@Category</MatExpansionPanelHeader>
+        <MatExpansionPanelSubHeader>@Documents.Count() Dokumente</MatExpansionPanelSubHeader>
+    </MatExpansionPanelSummary>
+    <MatExpansionPanelDetails>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-8 p-5">
+            @foreach (var doc in Documents)
+            {
+                <SearchableDocumentCard Restore="Restore" Edit="Edit" View="View" ChangeVisibility="ChangeVisibility" ShowEditContext="ShowEditContext" Delete="Delete" ReadModel="@doc.GetContent()"/>
+            }
+        </div>
+    </MatExpansionPanelDetails>
+</MatExpansionPanel>

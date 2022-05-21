@@ -1,0 +1,61 @@
+﻿@using HT.Web.Extensions
+@using HT.Application.Article
+<MatCard Class="p-3" Style=@(!ReadModel.IsVisible ? "filter: opacity(0.5) " : "")>
+    <MatCardContent @onclick="() => View.InvokeAsync(ReadModel)">
+        <div>
+            <MatHeadline6 Class="break-all">
+                @ReadModel.CurrentRevision.Title
+            </MatHeadline6>
+            @{
+                <MatSubtitle2>
+                    @ReadModel.CurrentRevision.Date.ToDeTime().ToString("g") von @ReadModel.CurrentRevision.UserContext.DisplayName
+                </MatSubtitle2>
+            }
+        </div>
+        <MatDivider Class="bg-yellow-500"/>
+        <div class="mt-3 h-24 text-preview break-all">
+            @((MarkupString) ReadModel.CurrentRevision.Content)
+        </div>
+    </MatCardContent>
+    @if (ShowEditContext)
+    {
+        <MatCardActions>
+            <div class="flex items-center flex-wrap">
+                @{
+                    var userContext = ContextProvider.GetUserContext();
+                    if (userContext.IsEditor)
+                    {
+                        <MatButton OnClick="() => Edit.InvokeAsync(ReadModel)" Icon="edit">Bearbeiten</MatButton>
+                        <MatButton OnClick="() => Delete.InvokeAsync(ReadModel)" Icon="delete">Löschen</MatButton>
+                        <MatButton OnClick="() => ChangeVisibility.InvokeAsync(ReadModel)" Icon="@(ReadModel.IsVisible ? MatIconNames.Visibility : MatIconNames.Visibility_off)">Sichtbarkeit</MatButton>
+                    }
+                }
+            </div>
+        </MatCardActions>
+    }
+</MatCard>
+
+@code {
+
+    [Parameter]
+    public ArticleReadModel ReadModel { get; set; }
+
+    [Parameter]
+    public bool ShowEditContext { get; set; }
+
+    [Parameter]
+    public EventCallback<ArticleReadModel> Delete { get; set; }
+
+    [Parameter]
+    public EventCallback<ArticleReadModel> ChangeVisibility { get; set; }
+
+    [Parameter]
+    public EventCallback<ArticleReadModel> Edit { get; set; }
+
+    [Parameter]
+    public EventCallback<ArticleReadModel> View { get; set; }
+    
+    [Inject]
+    public IContextProvider ContextProvider { get; set; }
+
+}

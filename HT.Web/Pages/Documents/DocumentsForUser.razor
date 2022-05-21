@@ -1,0 +1,14 @@
+﻿@page "/documents/user"
+@inject IDocumentService documentService
+@inject NavigationManager nav
+@inject IContextProvider contextProvider
+
+<DocumentAppBar AppbarTitle="Alle Dokumente" LoadDocumentsAsync="LoadDocuments">
+    <NoContentView>
+        <NoContent>
+            <div class="flex flex-col items-center justify-center mt-6">
+                <MatBody1>Keine Dokumente vorhanden</MatBody1>
+            </div>
+        </NoContent>
+    </NoContentView>
+</DocumentAppBar>

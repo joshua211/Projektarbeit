@@ -1,0 +1,205 @@
+{
+  "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\HT.Web.csproj",
+  "Configuration": {
+    "ConfigurationName": "MVC-3.0",
+    "LanguageVersion": "5.0",
+    "Extensions": [
+      {
+        "ExtensionName": "MVC-3.0"
+      }
+    ]
+  },
+  "ProjectWorkspaceState": {
+    "TagHelpers": [],
+    "CSharpLanguageVersion": 900
+  },
+  "RootNamespace": "HT.Web",
+  "Documents": [
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Pages\\Documents\\DocumentsForUser.razor",
+      "TargetPath": "Pages\\Documents\\DocumentsForUser.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\NoContent.razor",
+      "TargetPath": "Shared\\NoContent.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\Documents\\Layout\\DocumentGrid.razor",
+      "TargetPath": "Shared\\Documents\\Layout\\DocumentGrid.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\_Imports.razor",
+      "TargetPath": "_Imports.razor",
+      "FileKind": "componentImport"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\DebugPanel.razor",
+      "TargetPath": "Shared\\DebugPanel.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\Unauthorized.razor",
+      "TargetPath": "Shared\\Unauthorized.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Pages\\News\\ArticleView.razor",
+      "TargetPath": "Pages\\News\\ArticleView.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\Articles\\ArticleGrid.razor",
+      "TargetPath": "Shared\\Articles\\ArticleGrid.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Pages\\Documents\\Dashboard.razor",
+      "TargetPath": "Pages\\Documents\\Dashboard.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\AsyncResultHandler.razor",
+      "TargetPath": "Shared\\AsyncResultHandler.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Pages\\Documents\\DocumentsForCategory.razor",
+      "TargetPath": "Pages\\Documents\\DocumentsForCategory.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\Documents\\DocumentExpansionPanel.razor",
+      "TargetPath": "Shared\\Documents\\DocumentExpansionPanel.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Pages\\Documents\\DocumentEdit.razor",
+      "TargetPath": "Pages\\Documents\\DocumentEdit.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\ContextHandler.razor",
+      "TargetPath": "Shared\\ContextHandler.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\Documents\\CategoryLink.razor",
+      "TargetPath": "Shared\\Documents\\CategoryLink.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\Documents\\Layout\\DocumentLayoutBar.razor",
+      "TargetPath": "Shared\\Documents\\Layout\\DocumentLayoutBar.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\Documents\\DocumentSubscriptionButton.razor",
+      "TargetPath": "Shared\\Documents\\DocumentSubscriptionButton.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\MainLayout.razor",
+      "TargetPath": "Shared\\MainLayout.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\App.razor",
+      "TargetPath": "App.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Pages\\News\\ArticleEdit.razor",
+      "TargetPath": "Pages\\News\\ArticleEdit.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\Documents\\DocumentAppBar.razor",
+      "TargetPath": "Shared\\Documents\\DocumentAppBar.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\Articles\\ArticleCard.razor",
+      "TargetPath": "Shared\\Articles\\ArticleCard.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\Documents\\Layout\\DocumentTable.razor",
+      "TargetPath": "Shared\\Documents\\Layout\\DocumentTable.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Pages\\Redirect.razor",
+      "TargetPath": "Pages\\Redirect.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Pages\\Error.cshtml",
+      "TargetPath": "Pages\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\SearchableContentView.razor",
+      "TargetPath": "Shared\\SearchableContentView.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\ReturnAppbar.razor",
+      "TargetPath": "Shared\\ReturnAppbar.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\RoleSelect.razor",
+      "TargetPath": "Shared\\RoleSelect.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\Articles\\ArticleAppBar.razor",
+      "TargetPath": "Shared\\Articles\\ArticleAppBar.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Pages\\News\\News.razor",
+      "TargetPath": "Pages\\News\\News.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Pages\\Documents\\DocumentView.razor",
+      "TargetPath": "Pages\\Documents\\DocumentView.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\Documents\\SearchableDocumentCard.razor",
+      "TargetPath": "Shared\\Documents\\SearchableDocumentCard.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Pages\\_Host.cshtml",
+      "TargetPath": "Pages\\_Host.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Pages\\Documents\\Documents.razor",
+      "TargetPath": "Pages\\Documents\\Documents.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Pages\\Login.razor",
+      "TargetPath": "Pages\\Login.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\Error.razor",
+      "TargetPath": "Shared\\Error.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Users\\Lycos\\Desktop\\HT\\src\\HT.Web\\Shared\\NoneLayout.razor",
+      "TargetPath": "Shared\\NoneLayout.razor",
+      "FileKind": "component"
+    }
+  ],
+  "SerializationFormat": "0.2"
+}

@@ -1,0 +1,13 @@
+﻿@page "/documents/category/{Category}"
+@inject IContextProvider contextProvider
+@inject IDocumentService documentService
+
+<DocumentAppBar ShowReturnButton="true" ShowEditorContext="false" LoadDocumentsAsync="LoadDocuments" AppbarTitle=@($"Dokumente in {Category}")>
+    <NoContentView>
+        <div class="flex flex-col items-center justify-center mt-6">
+            <MatBody1>
+                Noch keine Dokumente vorhanden
+            </MatBody1>
+        </div>
+    </NoContentView>
+</DocumentAppBar>

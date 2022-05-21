@@ -1,0 +1,41 @@
+﻿@inject IJSRuntime js
+@inject NavigationManager nav
+
+<MatAppBarContainer>
+    <MatAppBar Fixed="true">
+        <MatAppBarRow>
+            <MatAppBarSection>
+                <MatIconButton OnClick="Back" Icon="@MatIconNames.Arrow_back"></MatIconButton>
+                <MatAppBarTitle>@AppbarTitle</MatAppBarTitle>
+            </MatAppBarSection>
+            <MatAppBarSection Align="MatAppBarSectionAlign.End">
+                @Actions
+            </MatAppBarSection>
+        </MatAppBarRow>
+    </MatAppBar>
+    @ChildContent
+</MatAppBarContainer>
+
+@code {
+
+    [Parameter]
+    public string AppbarTitle { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment Actions { get; set; }
+
+    [Parameter]
+    public string ReturnTo { get; set; }
+
+    public async Task Back()
+    {
+        if (string.IsNullOrEmpty(ReturnTo))
+            await js.InvokeVoidAsync("navigateBack");
+        else
+            nav.NavigateTo(ReturnTo);
+    }
+
+}
